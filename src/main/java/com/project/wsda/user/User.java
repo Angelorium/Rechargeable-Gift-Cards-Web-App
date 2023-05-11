@@ -1,9 +1,6 @@
 package com.project.wsda.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -11,14 +8,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@IdClass(UserId.class)
 @Getter
 @Setter
 public class User {
     @Id
+    @Column(updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotNull
+    @Id
+    @Column(updatable = false, nullable = false)
     @Size(min = 4, max = 45, message = "Username length must be between 4 and 45 characters")
     @Pattern(regexp = "^[a-zA-Z0-9]{4,45}$", message = " Username cannot contain spaces or special character except '_'")
     private String username;
