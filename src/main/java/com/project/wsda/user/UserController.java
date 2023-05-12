@@ -5,41 +5,41 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 
 
 @Controller
-@RequestMapping("/sign-up")
+@RequestMapping("/user")
 public class UserController {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @PostMapping
-    public String addNewUser(@Valid User user, BindingResult bindingResult, Model model){
-        if(!bindingResult.hasErrors()){
-            model.addAttribute("success", true);
-            model.addAttribute("successMessage", "User registered correctly");
-            userRepository.save(user);
+    @PostMapping("/add-user")
+    public String addUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult, Model model){
+        User existingUser = userService.findByUsername(userDto.getUsername());
+
+        if(existingUser != null){
+            bindingResult.reject("username", "The inserted username is already registered");
         }
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("user", userDto);
+            return "sign-up";
+        }
+        userService.saveUser(userDto);
+        model.addAttribute("success", true);
         return "sign-up";
     }
-
-    @GetMapping
-    public String displayForm(User user){
-        return "sign-up";
+    @GetMapping("/login")
+    public String login(){
+        return "login";
     }
 
-    @ExceptionHandler({SQLIntegrityConstraintViolationException.class})
-    public ModelAndView usernameError(){
-        ModelAndView mv = new ModelAndView("sign-up");
-        mv.addObject("user", new User());
-        mv.addObject("usernameError", true);
-        mv.addObject("errorMessage", "This username already exists");
-        return mv;
+    @GetMapping("/sign-up")
+    public String SignUpForm(Model model){
+        model.addAttribute("user", new UserDto());
+        return "sign-up";
     }
 }

@@ -1,35 +1,37 @@
 package com.project.wsda.user;
 
+import com.project.wsda.role.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@IdClass(UserId.class)
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "users")
 public class User {
     @Id
     @Column(updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Id
     @Column(updatable = false, nullable = false)
-    @Size(min = 4, max = 45, message = "Username length must be between 4 and 45 characters")
-    @Pattern(regexp = "^[a-zA-Z0-9]{4,45}$", message = " Username cannot contain spaces or special character except '_'")
     private String username;
 
-    @NotNull
-    @Size(min = 4, max = 20, message = "Password length must be between 4 and 20 characters")
-    @Pattern(regexp = "^[a-zA-Z0-9?!#@*+-]{4,20}$", message = "Password cannot contain spaces or special characters except '_' '?' '!' '@' '+' '#' '-' '*'")
+    @Column(nullable = false)
     private String password;
 
-    @NotNull
-    private Integer role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

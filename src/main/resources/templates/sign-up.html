@@ -13,28 +13,28 @@
     <div class="row">
         <div class="p-5 shadow bg-white rounded mx-auto col-10 col-lg-6 ">
             <h3 class="text-center">Sign Up</h3>
-            <form class="p-5" th:object="${user}" action="/sign-up" method="post">
+            <form class="p-5" th:object="${user}" th:action="@{/user/add-user}" method="post">
                 <div class="form-group">
                     <label for="username">Shop Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
+                    <input type="text" class="form-control" id="username" name="username" th:field="*{username}" placeholder="Enter Username" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+                    <input type="password" class="form-control" id="password" name="password" th:field="*{password}" placeholder="Enter Password" required>
                 </div>
                 <div class="form-check mt-2">
                     <label class="form-check-label" for="shop">Register as Shop</label>
-                    <input class="form-check-input" type="radio" name="role" id="shop" value="1" checked>
+                    <input class="form-check-input" checked type="radio" name="role" id="shop" th:field="*{role}" value="shop">
                 </div>
                 <div class="form-check">
                     <label class="form-check-label" for="manager">Register as Manager</label>
-                    <input class="form-check-input" type="radio" name="role" id="manager" value="0">
+                    <input class="form-check-input" type="radio" name="role" id="manager" th:field="*{role}" value="manager">
                 </div>
                 <div class="text-center"><button type="submit" class="btn btn-primary mt-3 mb-3">Submit</button></div>
-                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-danger alert-dismissible"></div>
-                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger alert-dismissible"></div>
-                <div th:if="${success == true}" th:text="${successMessage}" class="alert alert-success alert-dismissible"></div>
-                <div th:if="${usernameError == true}" th:text="${errorMessage}" class="alert alert-danger alert-dismissible"></div>
+                <div th:errors = "*{username}" th:if="${#fields.hasErrors('username')}" class="alert alert-danger"></div>
+                <div th:errors = "*{password}" th:if="${#fields.hasErrors('password')}" class="alert alert-danger"></div>
+                <div th:errors = "*{role}" th:if="${#fields.hasErrors('role')}" class="alert alert-danger"></div>
+                <div th:if="${success}"><div class="alert alert-success">User registered correctly <a href="login.html">Login here</a></div></div>
             </form>
         </div>
     </div>
