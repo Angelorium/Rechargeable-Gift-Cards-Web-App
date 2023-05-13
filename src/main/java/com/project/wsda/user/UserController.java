@@ -1,6 +1,7 @@
 package com.project.wsda.user;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,19 +10,17 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/user")
+@AllArgsConstructor
 public class UserController {
-    private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @PostMapping("/add-user")
     public String addUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult, Model model){
         User existingUser = userService.findByUsername(userDto.getUsername());
 
         if(existingUser != null){
-            bindingResult.reject("username", "The inserted username is already registered");
+            bindingResult.rejectValue("username","error.username","The inserted username is already registered");
         }
 
         if(bindingResult.hasErrors()){

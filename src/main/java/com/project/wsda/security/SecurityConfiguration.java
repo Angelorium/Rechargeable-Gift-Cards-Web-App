@@ -1,5 +1,6 @@
 package com.project.wsda.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,31 +15,36 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
+@AllArgsConstructor
 public class SecurityConfiguration {
 
-    @Autowired
     private UserDetailsService userDetailsService;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests(authorize -> authorize
                     .requestMatchers("/user/**").permitAll()
+                    .requestMatchers("/shop/**").hasAuthority("shop")
+                    .requestMatchers("/company/**").hasAuthority("company")
                     .requestMatchers("/index").permitAll()
                     .anyRequest()
                     .authenticated()
                 )
+                .exceptionHandling(h -> h
+                        .accessDeniedPage("/access-denied")
+                )
                 .formLogin(form -> form
                     .loginPage("/user/login")
                     .successHandler(new LoginSuccessHandler())
-                    .permitAll())
+                    .permitAll()
+                )
                 .logout(logout -> logout
                      .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                      .permitAll()
                 );
         return http.build();
     }
-
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {

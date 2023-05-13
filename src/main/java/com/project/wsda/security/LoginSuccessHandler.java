@@ -14,14 +14,14 @@ import java.util.Collection;
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     SimpleUrlAuthenticationSuccessHandler shopSuccessHandler = new SimpleUrlAuthenticationSuccessHandler("/shop");
-    SimpleUrlAuthenticationSuccessHandler managerSuccessHandler = new SimpleUrlAuthenticationSuccessHandler("/manager");
+    SimpleUrlAuthenticationSuccessHandler managerSuccessHandler = new SimpleUrlAuthenticationSuccessHandler("/company");
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
             String authorityName = grantedAuthority.getAuthority();
-            if (authorityName.equals("manager")) {
+            if (authorityName.equals("company")) {
                 this.managerSuccessHandler.onAuthenticationSuccess(request, response, authentication);
                 return;
             }

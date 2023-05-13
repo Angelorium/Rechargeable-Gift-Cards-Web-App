@@ -1,6 +1,7 @@
 package com.project.wsda.user;
 
 import com.project.wsda.role.Role;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,13 +13,10 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
-public class UserDetailServiceImplementation implements UserDetailsService {
+@AllArgsConstructor
+public class UserDetailsServiceImp implements UserDetailsService {
 
     private final UserRepository userRepository;
-
-    public UserDetailServiceImplementation(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username){

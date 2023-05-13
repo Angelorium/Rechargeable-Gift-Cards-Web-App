@@ -2,23 +2,19 @@ package com.project.wsda.user;
 
 import com.project.wsda.role.Role;
 import com.project.wsda.role.RoleRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
 @Service
-public class UserServiceImplementation implements UserService{
+@AllArgsConstructor
+public class UserServiceImp implements UserService{
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public UserServiceImplementation(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder){
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public void saveUser(UserDto userDto){

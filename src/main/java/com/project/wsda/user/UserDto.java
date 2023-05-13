@@ -24,8 +24,8 @@ public class UserDto {
     @NotEmpty(message = "Provide a password")
     private String password;
 
-    @NotNull(message = "Select a role")
-    @Pattern(regexp = "(shop|manager)")
+    @NotEmpty(message = "Select a role")
+    @Pattern(regexp = "(shop|company)")
     private String role;
 
 }
