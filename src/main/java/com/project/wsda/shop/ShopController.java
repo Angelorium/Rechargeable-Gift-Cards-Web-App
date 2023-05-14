@@ -24,6 +24,35 @@ public class ShopController {
         return "/shop/payment";
     }
 
+    @PostMapping("/payment")
+    public String payment(Integer id, Integer amount, Model model){
+        Card card = cardService.findCardById(id);
+        if(card != null) {
+            if(card.getState().equals("invalid")){
+                model.addAttribute("error", true);
+                model.addAttribute("errorMessage", "Card is not valid");
+            }
+            else if(card.getCredit() - amount < 0) {
+                model.addAttribute("error", true);
+                model.addAttribute("errorMessage", "Not enough available credit");
+            }
+            else {
+                int creditRemaining = card.getCredit() - amount;
+                cardService.updateCreditById(id, creditRemaining);
+                if(creditRemaining == 0){
+                    cardService.updateStateById(id, "invalid");
+                }
+                model.addAttribute("success", true);
+                model.addAttribute("successMessage", "Success, remaining credit: " + creditRemaining + " €");
+            }
+        }
+        else{
+            model.addAttribute("error", true);
+            model.addAttribute("errorMessage", "Gift Card Id not found");
+        }
+        return "/shop/payment";
+    }
+
     @GetMapping("/cards/check-card")
     public String checkCardForm(Model model){
         model.addAttribute("id", 1);
@@ -32,9 +61,7 @@ public class ShopController {
 
     @PostMapping("/cards/check-card")
     public String checkCard(Integer id, Model model){
-
         Card card = cardService.findCardById(id);
-
         if(card != null){
             model.addAttribute("cardId", card.getCredit());
             model.addAttribute("cardCredit", card.getCredit());
@@ -45,7 +72,6 @@ public class ShopController {
             model.addAttribute("error", true);
             model.addAttribute("errorMessage", "Gift Card Id not found");
         }
-
         return "shop/check-card";
     }
 }

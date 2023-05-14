@@ -21,9 +21,7 @@
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <form method="get" action="/logout">
-                        <button class="btn btn-danger" type="submit">Logout</button>
-                    </form>
+                    <a th:href="@{/logout}" class="btn btn-danger" type="submit">Logout</a>
                 </li>
             </ul>
         </div>

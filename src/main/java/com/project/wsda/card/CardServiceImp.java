@@ -2,6 +2,7 @@ package com.project.wsda.card;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,8 +27,18 @@ public class CardServiceImp implements CardService{
 
     @Override
     public List<Card> findAllCards(){
-        List<Card> cards = cardRepository.findAll();
-        System.out.println(cards);
         return cardRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void updateCreditById(Integer id, Integer credit){
+        cardRepository.updateCreditById(id, credit);
+    }
+
+    @Override
+    @Transactional
+    public void updateStateById(Integer id, String state){
+        cardRepository.updateStateById(id, state);
     }
 }

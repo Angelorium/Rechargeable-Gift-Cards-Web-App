@@ -10,4 +10,7 @@ public interface CardService {
 
     List<Card> findAllCards();
 
+    void updateCreditById(Integer id, Integer credit);
+
+    void updateStateById(Integer id, String state);
 }
