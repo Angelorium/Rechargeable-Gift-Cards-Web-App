@@ -8,10 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,7 +38,7 @@ public class CompanyController {
     }
 
     @PostMapping("/cards/add-card")
-    public String addCard(@Valid @ModelAttribute("card") CardDto cardDto, BindingResult bindingResult, Model model){
+    public String addCard(@Valid @RequestAttribute("card") CardDto cardDto, BindingResult bindingResult, Model model){
 
         cardDto.setState("valid");
         if(bindingResult.hasErrors()){

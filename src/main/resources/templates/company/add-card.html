@@ -34,7 +34,7 @@
                 <h3 class="text-center">Generate Gift Card</h3>
                 <form class="p-5" th:object="${card}" th:action="@{/company/cards/add-card}" method="post">
                     <label class="form-label" for="credit">Credit amount (€)</label>
-                    <input type="number" class="form-control" id="credit" name="credit" th:field="*{credit}" min="1" required/>
+                    <input type="number" class="form-control" id="credit" name="credit" th:field="*{credit}" min="1" max="1000" required/>
                     <div class="text-center"><button type="submit" class="btn btn-primary mt-3 mb-3">Submit</button></div>
                     <div th:errors = "*{credit}" th:if="${#fields.hasErrors('credit')}" class="alert alert-danger"></div>
                     <div th:if="${success}"><div class="alert alert-success">Card created correctly</div></div>
