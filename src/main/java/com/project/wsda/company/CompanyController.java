@@ -38,8 +38,7 @@ public class CompanyController {
     }
 
     @PostMapping("/cards/add-card")
-    public String addCard(@Valid @RequestAttribute("card") CardDto cardDto, BindingResult bindingResult, Model model){
-
+    public String addCard(@Valid @ModelAttribute("card") CardDto cardDto, BindingResult bindingResult, Model model){
         cardDto.setState("valid");
         if(bindingResult.hasErrors()){
             model.addAttribute("card", cardDto);

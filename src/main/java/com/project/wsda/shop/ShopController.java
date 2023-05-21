@@ -2,10 +2,16 @@ package com.project.wsda.shop;
 
 import com.project.wsda.card.Card;
 import com.project.wsda.card.CardService;
+import com.project.wsda.transaction.TransactionDto;
+import com.project.wsda.transaction.TransactionService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/shop")
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class ShopController {
 
     private final CardService cardService;
+    private final TransactionService transactionService;
 
     @GetMapping
     public String shop(){
@@ -37,8 +44,17 @@ public class ShopController {
                 model.addAttribute("errorMessage", "Not enough available credit");
             }
             else {
+                User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                TransactionDto transactionDto = new TransactionDto();
+                transactionDto.setAmount(amount);
+                transactionDto.setCardId(id);
+                transactionDto.setTimestamp(LocalDateTime.now());
+                transactionDto.setShopUsername(user.getUsername());
+                transactionService.saveTransaction(transactionDto);
+
                 int creditRemaining = card.getCredit() - amount;
                 cardService.updateCreditById(id, creditRemaining);
+
                 if(creditRemaining == 0){
                     cardService.updateStateById(id, "invalid");
                 }
@@ -63,7 +79,7 @@ public class ShopController {
     public String checkCard(Integer id, Model model){
         Card card = cardService.findCardById(id);
         if(card != null){
-            model.addAttribute("cardId", card.getCredit());
+            model.addAttribute("cardId", card.getId());
             model.addAttribute("cardCredit", card.getCredit());
             model.addAttribute("cardState", card.getState());
             model.addAttribute("success", true);
@@ -73,5 +89,12 @@ public class ShopController {
             model.addAttribute("errorMessage", "Gift Card Id not found");
         }
         return "shop/check-card";
+    }
+
+    @GetMapping("/transactions")
+    public String transactions(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("transactions", transactionService.findTransactionsByUser(user));
+        return "shop/transactions";
     }
 }

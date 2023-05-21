@@ -1,6 +1,7 @@
 package com.project.wsda.user;
 
 import com.project.wsda.role.Role;
+import com.project.wsda.transaction.Transaction;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,4 +32,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "shop")
+    private List<Transaction> transactions;
 }

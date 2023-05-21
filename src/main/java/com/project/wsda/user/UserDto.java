@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto {
 
-    private Integer id;
+    //private Integer id;
 
     @Size(min = 4, max = 45, message = "Username length must be between 4 and 45 characters")
     @Pattern(regexp = "^[a-zA-Z0-9]{4,45}$", message = " Username cannot contain spaces or special character except '_'")
