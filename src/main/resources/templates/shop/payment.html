@@ -13,13 +13,16 @@
             <a class="navbar-brand" href="/shop">Shop</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/shop/cards/check-card">Check Gift Card</a>
+                    <a class="nav-link active" href="/cards/check-card">Check Card</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/shop/payment">Payment</a>
+                    <a class="nav-link active" href="/cards/payment">Payment</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/shop/transactions">Transactions</a>
+                    <a class="nav-link active" href="/cards/recharge">Recharge</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/cards/transactions">Transactions</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
@@ -29,11 +32,12 @@
             </ul>
         </div>
     </nav>
+
     <div class="container mt-5 pt-5">
         <div class="row">
             <div class="p-5 shadow bg-white rounded mx-auto col-10 col-lg-6 ">
                 <h3 class="text-center">Payment</h3>
-                <form class="p-5" th:action="@{/shop/payment}" method="post">
+                <form class="p-5" th:action="@{/cards/payment}" method="post">
                     <label class="form-label" for="id">Gift Card Id</label>
                     <input type="number" style="-webkit-appearance: none; -moz-appearance: textfield" class="form-control" id="id" name="id"  min="1" max="2147483647" placeholder="Enter the Gift Card id " required/>
                     <label class="form-label" for="amount">Amount (€)</label>

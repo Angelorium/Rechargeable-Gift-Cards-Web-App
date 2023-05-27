@@ -26,11 +26,6 @@ public class CardServiceImp implements CardService{
     }
 
     @Override
-    public List<Card> findAllCards(){
-        return cardRepository.findAll();
-    }
-
-    @Override
     @Transactional
     public void updateCreditById(Integer id, Integer credit){
         cardRepository.updateCreditById(id, credit);

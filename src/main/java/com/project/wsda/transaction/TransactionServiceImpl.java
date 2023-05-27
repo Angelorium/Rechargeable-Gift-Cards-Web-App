@@ -18,7 +18,7 @@ public class TransactionServiceImpl implements TransactionService{
     public void saveTransaction(TransactionDto transactionDto){
         Transaction transaction = new Transaction();
         transaction.setAmount(transactionDto.getAmount());
-        transaction.setShop(userRepository.findByUsername(transactionDto.getShopUsername()));
+        transaction.setUserId(userRepository.findByUsername(transactionDto.getUsername()));
         transaction.setCardId(transactionDto.getCardId());
         transaction.setTimestamp(transactionDto.getTimestamp());
         transactionRepository.save(transaction);

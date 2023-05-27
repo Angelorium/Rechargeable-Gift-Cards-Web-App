@@ -24,20 +24,13 @@ public class CompanyController {
         return "/company/company";
     }
 
-    @GetMapping("/cards/add-card")
+    @GetMapping("/add-card")
     public String addCardForm(Model model){
         model.addAttribute("card", new CardDto());
         return "/company/add-card";
     }
 
-    @GetMapping("/cards/view-cards")
-    public String getCards(Model model){
-        List<Card> cards = cardService.findAllCards();
-        model.addAttribute("cards", cards);
-        return "/company/view-cards";
-    }
-
-    @PostMapping("/cards/add-card")
+    @PostMapping("/add-card")
     public String addCard(@Valid @ModelAttribute("card") CardDto cardDto, BindingResult bindingResult, Model model){
         cardDto.setState("valid");
         if(bindingResult.hasErrors()){

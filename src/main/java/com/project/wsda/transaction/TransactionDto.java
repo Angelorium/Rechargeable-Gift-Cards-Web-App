@@ -1,5 +1,8 @@
 package com.project.wsda.transaction;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TransactionDto {
 
-    private String shopUsername;
+    private String username;
     private Integer cardId;
     private Integer amount;
     private LocalDateTime timestamp;

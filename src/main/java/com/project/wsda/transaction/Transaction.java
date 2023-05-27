@@ -19,11 +19,11 @@ public class Transaction {
     @Id
     @Column(updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idT;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
-    private User shop;
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
+    private User userId;
 
     @Column(nullable = false)
     private Integer cardId;

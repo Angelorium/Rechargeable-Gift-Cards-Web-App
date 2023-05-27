@@ -10,13 +10,22 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/company" >Company</a>
+            <a class="navbar-brand" href="/company">Company</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/company/cards/view-cards">View gift-cards</a>
+                    <a class="nav-link active" href="/company/add-card">Generate card</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/company/cards/add-card">Generate gift-card</a>
+                    <a class="nav-link active" href="/cards/check-card">Check card</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/cards/payment">Payment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/cards/recharge">Recharge</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/cards/transactions">Transactions</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
@@ -26,11 +35,12 @@
             </ul>
         </div>
     </nav>
+
     <div class="container mt-5 pt-5">
         <div class="row">
             <div class="p-5 shadow bg-white rounded mx-auto col-10 col-lg-6 ">
-                <h3 class="text-center">Generate Gift Card</h3>
-                <form class="p-5" th:object="${card}" th:action="@{/company/cards/add-card}" method="post">
+                <h3 class="text-center">Generate Card</h3>
+                <form class="p-5" th:object="${card}" th:action="@{/company/add-card}" method="post">
                     <label class="form-label" for="credit">Credit amount (€)</label>
                     <input type="number" class="form-control" id="credit" name="credit" th:field="*{credit}" min="1" max="1000" required/>
                     <div class="text-center"><button type="submit" class="btn btn-primary mt-3 mb-3">Submit</button></div>
