@@ -50,7 +50,7 @@
                     <div th:errors = "*{username}" th:if="${#fields.hasErrors('username')}" class="alert alert-danger"></div>
                     <div th:errors = "*{password}" th:if="${#fields.hasErrors('password')}" class="alert alert-danger"></div>
                     <div th:errors = "*{role}" th:if="${#fields.hasErrors('role')}" class="alert alert-danger"></div>
-                    <div th:if="${success}"><div class="alert alert-success">User registered correctly <a href="login.html">Login here</a></div></div>
+                    <div th:if="${success}"><div class="alert alert-success">User registered correctly <a href="/user/login">Login here</a></div></div>
                 </form>
             </div>
         </div>

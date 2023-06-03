@@ -8,7 +8,7 @@ public interface CardRepository extends JpaRepository<Card, Integer> {
 
     Card findCardById(Integer id);
 
-    @Modifying()
+    @Modifying
     @Query(value = "update Card as c set c.credit=?2 where c.id=?1")
     void updateCreditById(Integer id, Integer credit);
 
