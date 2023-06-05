@@ -12,8 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto {
 
-    //private Integer id;
-
     @Size(min = 4, max = 45, message = "Username length must be between 4 and 45 characters")
     @Pattern(regexp = "^[a-zA-Z0-9]{4,45}$", message = " Username cannot contain spaces or special character except '_'")
     @NotEmpty(message = "Provide an username")
@@ -24,8 +22,5 @@ public class UserDto {
     @NotEmpty(message = "Provide a password")
     private String password;
 
-    @NotEmpty(message = "Select a role")
-    @Pattern(regexp = "(shop|company)")
     private String role;
-
 }
