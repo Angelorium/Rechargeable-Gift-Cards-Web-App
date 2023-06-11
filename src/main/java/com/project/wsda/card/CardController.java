@@ -109,7 +109,7 @@ public class CardController {
         else if(card != null) {
             if(card.getCredit() + amount > 1000) {
                 model.addAttribute("error", true);
-                model.addAttribute("errorMessage", "The max card credit is 1000 €");
+                model.addAttribute("errorMessage", "Error, The max card credit is 1000 €");
             }
             else {
                 int newCredit = card.getCredit() + amount;
