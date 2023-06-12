@@ -41,7 +41,7 @@
                 <label class="form-label" for="id">Card Id</label>
                 <input type="number" style="-webkit-appearance: none; -moz-appearance: textfield" class="form-control" id="id" name="id"  min="1" max="2147483647" placeholder="Enter the Card id " required/>
                 <label class="form-label" for="amount">Amount (€)</label>
-                <input type="number" class="form-control" id="amount" name="amount"  min="1" max="1000" placeholder="Enter the amount " required/>
+                <input type="number" class="form-control" id="amount" name="amount"  min="1" max="10000" placeholder="Enter the amount " required/>
                 <div class="text-center"><button type="submit" class="btn btn-primary mt-3 mb-3">Submit</button></div>
                 <div th:if="${error}" th:text="${errorMessage}" class="alert alert-danger"></div>
                 <div class="alert alert-success" th:if="${success}" th:text="${successMessage}"></div>

@@ -18,8 +18,8 @@ public class CardDto {
     @Pattern(regexp = "(valid|invalid)")
     private String state;
 
-    @Min(value = 1, message = "Credit must be between 1 and 1000")
-    @Max(value = 1000, message = "Credit must be between 1 and 1000")
+    @Min(value = 1, message = "Credit must be between 1 and 10000")
+    @Max(value = 10000, message = "Credit must be between 1 and 10000")
     @NotNull(message = "Provide a credit amount")
     private Integer credit;
 }

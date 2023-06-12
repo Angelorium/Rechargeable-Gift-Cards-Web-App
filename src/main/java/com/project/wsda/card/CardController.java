@@ -54,9 +54,9 @@ public class CardController {
     @PostMapping("/payment")
     public String payment(Integer id, Integer amount, Model model, Authentication authentication){
         Card card = cardService.findCardById(id);
-        if(amount < 0 || amount > 1000){
+        if(amount < 0 || amount > 10000){
             model.addAttribute("error", true);
-            model.addAttribute("errorMessage", "Credit must be between 1 and 1000");
+            model.addAttribute("errorMessage", "Credit must be between 1 and 10000");
         }
         else if(card != null) {
             if(card.getState().equals("invalid")){
@@ -102,14 +102,14 @@ public class CardController {
     @PostMapping("/recharge")
     public String recharge(Integer id, Integer amount, Model model, Authentication authentication){
         Card card = cardService.findCardById(id);
-        if(amount < 0 || amount > 1000){
+        if(amount < 0 || amount > 10000){
             model.addAttribute("error", true);
-            model.addAttribute("errorMessage", "Credit must be between 1 and 1000");
+            model.addAttribute("errorMessage", "Credit must be between 1 and 10000");
         }
         else if(card != null) {
             if(card.getCredit() + amount > 1000) {
                 model.addAttribute("error", true);
-                model.addAttribute("errorMessage", "Error, The max card credit is 1000 €");
+                model.addAttribute("errorMessage", "Error, The max card credit is 10000 €");
             }
             else {
                 int newCredit = card.getCredit() + amount;
